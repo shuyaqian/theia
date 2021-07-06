@@ -280,7 +280,19 @@ export class TreeViewWidget extends TreeViewWelcomeWidget {
             title
         });
 
-        const children = this.getCaption(node);
+        const children: React.ReactNode[] = [];
+        children.push(this.getCaption(node));
+        const caption = this.toNodeName(node);
+        const highlight = this.getDecorationData(node, 'highlight')[0];
+        if (highlight) {
+            children.push(this.toReactNode(caption, highlight));
+        }
+        const searchHighlight = this.searchHighlights ? this.searchHighlights.get(node.id) : undefined;
+        if (searchHighlight) {
+            children.push(...this.toReactNode(caption, searchHighlight));
+        } else if (!highlight) {
+            children.push(caption);
+        }
         return React.createElement('div', attrs, ...children);
     }
 
