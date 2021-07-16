@@ -280,7 +280,7 @@ export class TreeViewWidget extends TreeViewWelcomeWidget {
             title
         });
 
-        const children = [this.getCaption(node)];
+        const children: React.ReactNode = [];
         const caption = this.toNodeName(node);
         const highlight = this.getDecorationData(node, 'highlight')[0];
         if (highlight) {
